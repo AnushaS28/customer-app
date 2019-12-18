@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+    	addCustomer = function(){
+    		console.log("do login called");
+    		var data = {};
+    		data.name = $('#name').val();
+    		data.email = $('#email').val();
+        data.phone = $('#phone').val();
+        data.address = $('#address').val();
+
+    		$.ajax({
+          type: "POST",
+          url: "/api/customer",
+          data: data,
+          success: function(data){
+            if(data.result == "success"){
+              //alert("login success ");
+              location="/customers";
+            }else{
+              alert("Some error while saving record.");
+            }
+          }
+        });
+    	}
+    </script>
+    <h1><%= title %></h1>
+    <input id="name" type="text" name="" placeholder="name"><br/><br/>
+    <input id="email" type="text" name="" placeholder="email"><br/><br/>
+    <input id="phone" type="text" name="" placeholder="phone"><br/><br/>
+    <input id="address" type="text" name="" placeholder="address"><br/><br/>
+    <input type="button" value="Add" name="" onclick="addCustomer()">
+  </body>
+</html>

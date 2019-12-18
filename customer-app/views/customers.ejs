@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  	<script type="text/javascript">
+  		openPage = function(nextPage){
+  			location = "/"+nextPage;
+  		}
+      doEdit = function(id){
+        location = "/customers/edit/"+id;
+      }
+      doSearch = function(id){
+        let searchText = $("#searchText").val();
+        let searchField = $("#searchField").val();
+        location = "/customers/"+searchField + "/"+searchText;
+      }
+      doDelete = function(id){
+        $.ajax({
+          type: "DELETE",
+          url: "/api/customer",
+          data: {id:id},
+          success: function(data){
+            if(data.result == "success"){
+              location="/customers";
+            }
+          }
+        });
+      }
+  	</script>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <button onclick="openPage('dashboard')">Dashboard</button> | 
+    <button onclick="openPage('customers')">Customers</button> | 
+    <button onclick="openPage('aboutus')">Aboutus</button> | 
+    <button onclick="openPage('login')">Logout</button> | 
+    <hr/>
+    <button onclick="openPage('customers/add')">Add Customer</button> &nbsp;
+    <input  id="searchText" type="" name="" placeholder="search text" > &nbsp;
+    <select id="searchField">
+      <option value="name">name</option>
+      <option value="email">email</option>
+      <option value="address">address</option>
+    </select> &nbsp;
+    <button onclick="doSearch()">Search</button>
+    <br/><br/>
+
+
+    <div class="page-data">
+         <div class="data-table">
+            <table border="1" cellpadding="7" cellspacing="7">
+                <tr>
+                    <th width="20px">No</th>
+                    <th width="250px">Name</th>
+                    <th width="220px">Email</th>
+                    <th width="100px">Phone</th>
+                    <th width="300px">Address</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <% if(data.length){for(var i = 0;i < data.length;i++) { %>       
+                <tr>
+                    <td><%=data[i].id%></td>
+                    <td><%=data[i].name%></td>
+                    <td><%=data[i].email%></td>
+                    <td><%=data[i].phone%></td>
+                    <td><%=data[i].address%></td>
+                    <td><button onclick="doEdit('<%=data[i].id%>');" >Edit</button></td>
+                    <td><button onclick="doDelete('<%=data[i].id %>');">Delete</button></td>
+                </tr>
+            <% }
+             }else{ %>
+                 <tr>
+                    <td colspan="7">No users</td>
+                 </tr>
+            <% } %> 
+            </table>
+         </div>
+        </div>
+  </body>
+</html>

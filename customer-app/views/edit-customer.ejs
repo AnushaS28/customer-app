@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+    	updateCustomer = function(){
+    		var data = {};
+        data.id = $('#id').val();
+    		data.name = $('#name').val();
+    		data.email = $('#email').val();
+        data.phone = $('#phone').val();
+        data.address = $('#address').val();
+    		$.ajax({
+          type: "PUT",
+          url: "/api/customer",
+          data: data,
+          success: function(data){
+            if(data.result == "success"){
+              location="/customers";
+            }
+          }
+        });
+    	}
+    </script>
+    <h1><%= title %></h1>
+    <input id="id" type="text" name="" value="<%= customer.id %>" readonly><br/><br/>
+    <input id="name" type="text" name=""  value="<%= customer.name %>"  placeholder="name"><br/><br/>
+    <input id="email" type="text" name=""  value="<%= customer.email %>" placeholder="email"><br/><br/>
+    <input id="phone" type="text" name=""  value="<%= customer.phone %>" placeholder="phone"><br/><br/>
+    <input id="address" type="text" name=""  value="<%= customer.address %>" placeholder="address"><br/><br/>
+    <input type="button" value="Add" name="" onclick="updateCustomer()">
+  </body>
+</html>

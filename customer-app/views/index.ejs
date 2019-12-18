@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<script type="text/javascript">
+  		openPage = function(nextPage){
+  			location = "/"+nextPage;
+  		}
+  	</script>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <button onclick="openPage('dashboard')">Dashboard</button> | 
+    <button onclick="openPage('customers')">Customers</button> | 
+    <button onclick="openPage('aboutus')">Aboutus</button> | 
+    <button onclick="openPage('login')">Logout</button> | 
+  </body>
+</html>
